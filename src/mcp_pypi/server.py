@@ -9,16 +9,7 @@ import platform
 import datetime
 from typing import Optional
 
-try:
-    from mcp.server.fastmcp import FastMCP
-except ImportError:
-    # Fallback / compatibility notice
-    try:
-        from mcp.server.mcpserver import MCPServer as FastMCP
-    except ImportError:
-        raise ImportError(
-            "Could not import FastMCP. Please ensure 'mcp>=1.3.0,<2.0.0' or compatible is installed."
-        )
+from mcp.server.fastmcp import FastMCP
 
 # Initialize FastMCP Server
 mcp = FastMCP(
