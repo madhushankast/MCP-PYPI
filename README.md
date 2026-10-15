@@ -48,10 +48,14 @@ MCP-PYPI/
 │   ├── gateway.py                     # MCP Gateway multiplexer implementation
 │   ├── test_gateway.py                # Gateway test client validating routing
 │   └── README.md                      # Gateway architecture explanation
-└── phase3_docker/
-    ├── Dockerfile                     # Multi-stage production container
-    ├── docker-compose.yml             # Orchestration for background SSE service
-    └── README.md                      # Docker STDIO and SSE execution guide
+├── phase3_docker/
+│   ├── Dockerfile                     # Multi-stage production container
+│   ├── docker-compose.yml             # Orchestration for background SSE service
+│   └── README.md                      # Docker STDIO and SSE execution guide
+└── Agentic_terminal/
+    ├── agentic_terminal.py            # Interactive CLI agent executing MCP tools
+    ├── langchain_agent.py             # LangChain agent integration
+    └── README.md                      # Agentic Terminal user guide
 ```
 
 ---
