@@ -3,6 +3,11 @@
 [![Python 3.10+](https://img.shields.io/badge/python-3.10+-blue.svg)](https://www.python.org/downloads/)
 [![MCP](https://img.shields.io/badge/MCP-1.30+-purple.svg)](https://modelcontextprotocol.io/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Author: madhushankast](https://img.shields.io/badge/Author-madhushankast-brightgreen.svg)](https://github.com/madhushankast)
+
+> **Author**: Madhushanka ([stmadhushanka067@gmail.com](mailto:stmadhushanka067@gmail.com))  
+> **GitHub**: [madhushankast/MCP-PYPI](https://github.com/madhushankast/MCP-PYPI)  
+> **Course Tutorial**: [MCP Full Course For Beginners (With Deployment)](https://www.youtube.com/watch?v=io02ZM0ADqM)
 
 Implementation of the advanced deployment phases of the Model Context Protocol (MCP) course:
 - **Phase 1: Deploy MCP to PyPI** (Timestamp 2:36:51)

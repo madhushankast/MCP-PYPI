@@ -1,5 +1,8 @@
 # Phase 3: Deploying MCP Server with Docker
 
+> **Author**: Madhushanka ([stmadhushanka067@gmail.com](mailto:stmadhushanka067@gmail.com))  
+> **Tutorial Reference**: [MCP Full Course For Beginners](https://www.youtube.com/watch?v=io02ZM0ADqM&t=12672s) (Timestamp `3:31:12`)
+
 This phase implements the deployment workflows demonstrated at **timestamp 3:31:12 ("Deploy MCP Server with Docker")** of the tutorial.
 
 ---

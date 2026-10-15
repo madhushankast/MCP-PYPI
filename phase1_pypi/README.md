@@ -1,5 +1,8 @@
 # Phase 1: Deploying MCP Server to PyPI
 
+> **Author**: Madhushanka ([stmadhushanka067@gmail.com](mailto:stmadhushanka067@gmail.com))  
+> **Tutorial Reference**: [MCP Full Course For Beginners](https://www.youtube.com/watch?v=io02ZM0ADqM&t=9411s) (Timestamp `2:36:51`)
+
 This phase covers everything demonstrated in the tutorial from **timestamp 2:36:51 ("Deploy MCP to PyPI")**:
 
 1. Package Architecture and `pyproject.toml`
