@@ -1,277 +1,143 @@
-# Model Context Protocol (MCP) Server & PyPI Deployment
+# MCP PyPI: Model Context Protocol Server Package
 
 [![Python 3.10+](https://img.shields.io/badge/python-3.10+-blue.svg)](https://www.python.org/downloads/)
 [![MCP](https://img.shields.io/badge/MCP-1.30+-purple.svg)](https://modelcontextprotocol.io/)
-[![Build System](https://img.shields.io/badge/build-uv%20%2F%20hatchling-orange.svg)](https://github.com/astral-sh/uv)
+[![Build System](https://img.shields.io/badge/build-hatchling-orange.svg)](https://github.com/pypa/hatch)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-A production-ready Model Context Protocol (MCP) server package demonstrating end-to-end building, testing, packaging for PyPI, gateway multiplexing, and Docker containerization.
+A Model Context Protocol (MCP) server packaged and structured for distribution on the Python Package Index (**PyPI**), as covered in the tutorial section **[2:36:51 - Deploy MCP to PyPI](https://www.youtube.com/watch?v=io02ZM0ADqM&t=9411s)**.
 
 ---
 
-## 📑 Table of Contents
-- [Project Architecture](#-project-architecture)
-- [Tools & Resources Catalog](#-tools--resources-catalog)
-- [Step 1: Clone the Repository](#step-1-clone-the-repository)
-- [Step 2: Environment Setup with uv](#step-2-environment-setup-with-uv)
-- [Step 3: Run & Test Locally](#step-3-run--test-locally)
-- [Step 4: Package & Deploy to PyPI (Phase 1)](#step-4-package--deploy-to-pypi-phase-1)
-- [Step 5: Run the MCP Gateway (Phase 2)](#step-5-run-the-mcp-gateway-phase-2)
-- [Step 6: Deploy with Docker (Phase 3)](#step-6-deploy-with-docker-phase-3)
-- [Step 7: Connect to AI Clients (Claude Desktop / Cursor)](#step-7-connect-to-ai-clients-claude-desktop--cursor)
-- [Troubleshooting & FAQs](#-troubleshooting--faqs)
-- [License & Author](#-license--author)
-
----
-
-## 📁 Project Architecture
+## 📁 Project Structure
 
 ```text
 MCP-PYPI/
-├── pyproject.toml                     # PEP 621 packaging metadata & CLI executable
-├── README.md                          # Complete setup and user guide
-├── .dockerignore
-├── .gitignore
+├── pyproject.toml              # PEP 621 packaging metadata & CLI executable definition
+├── README.md                   # Package documentation (displayed on PyPI)
+├── .gitignore                  # Git ignore rules
 ├── .github/
 │   └── workflows/
-│       └── publish.yml                # Automated CI/CD GitHub Actions PyPI publishing
-├── src/
-│   └── mcp_pypi/
-│       ├── __init__.py                # Package exports and version
-│       ├── main.py                    # Core FastMCP Server (Tools, Resources, CLI)
-│       └── server.py                  # Module re-export
-├── phase1_pypi/
-│   ├── test_client.py                 # Automated stdio client test script
-│   ├── publish.py                     # Interactive publishing helper for TestPyPI / PyPI
-│   └── README.md                      # PyPI packaging deep-dive
-├── phase2_gateway/
-│   ├── gateway.py                     # MCP Gateway multiplexer implementation
-│   ├── test_gateway.py                # Gateway test client validating routing
-│   └── README.md                      # Gateway architecture explanation
-├── phase3_docker/
-│   ├── Dockerfile                     # Multi-stage production container
-│   ├── docker-compose.yml             # Orchestration for background SSE service
-│   └── README.md                      # Docker STDIO and SSE execution guide
-└── Agentic_terminal/
-    ├── agentic_terminal.py            # Interactive CLI agent executing MCP tools
-    ├── langchain_agent.py             # LangChain agent integration
-    └── README.md                      # Agentic Terminal user guide
+│       └── publish.yml         # Automated GitHub Actions workflow to publish on release
+└── src/
+    └── mcp_pypi/
+        ├── __init__.py         # Package exports & version
+        ├── main.py             # FastMCP server with tools, resources, and CLI entrypoint
+        └── server.py           # Module alias
 ```
 
 ---
 
-## 🛠️ Tools & Resources Catalog
+## 🛠️ Implemented Tools & Resources
 
 ### Tools
-| Tool Name | Parameters | Description |
-| :--- | :--- | :--- |
-| `add` | `a: int, b: int` | Adds two integers together |
-| `subtract` | `a: int, b: int` | Subtracts `b` from `a` |
-| `multiply` | `a: int, b: int` | Multiplies two integers |
-| `divide` | `a: float, b: float` | Divides `a` by `b` (with zero-division validation) |
+- `add(a: int, b: int) -> int`: Adds two integers together.
+- `subtract(a: int, b: int) -> int`: Subtracts `b` from `a`.
+- `multiply(a: int, b: int) -> int`: Multiplies two integers.
+- `divide(a: float, b: float) -> float`: Divides `a` by `b` (with zero division check).
 
 ### Resources
-| Resource URI | Description |
-| :--- | :--- |
-| `greeting://{name}` | Returns a personalized dynamic greeting message |
+- `greeting://{name}`: Dynamic personalized greeting resource.
 
 ---
 
-## Step 1: Clone the Repository
+## 🚀 Quickstart: Local Setup & Testing
 
-Clone the project to your local machine:
-
+### 1. Clone the Repository
 ```bash
 git clone https://github.com/madhushankast/MCP-PYPI.git
 cd MCP-PYPI
 ```
 
----
-
-## Step 2: Environment Setup with uv
-
-We recommend using [uv](https://github.com/astral-sh/uv) for fast, reproducible Python dependency management.
-
-### Windows (PowerShell):
+### 2. Create Virtual Environment & Install Locally
+Using [`uv`](https://github.com/astral-sh/uv) (recommended):
 ```powershell
-# 1. Create a virtual environment using Python 3.10+
 uv venv --python 3.13
-
-# 2. Activate the virtual environment
 .venv\Scripts\activate
-
-# 3. Install the package in editable mode with dependencies
 uv pip install -e .
 ```
 
-### macOS / Linux (Bash):
+Or using standard `pip`:
 ```bash
-# 1. Create a virtual environment
-uv venv --python 3.12
-
-# 2. Activate the virtual environment
+python -m venv .venv
+# Windows:
+.venv\Scripts\activate
+# macOS/Linux:
 source .venv/bin/activate
 
-# 3. Install the package in editable mode
-uv pip install -e .
+pip install -e .
 ```
 
----
-
-## Step 3: Run & Test Locally
-
-### 1. Verify the CLI Command
-Once installed, the CLI command `mcp-pypi` is available in your environment:
+### 3. Verify the CLI Command
+The command `mcp-pypi` is installed directly into your environment:
 ```bash
 mcp-pypi --help
 ```
 
-### 2. Inspect with the MCP Inspector
-To interactively test your tools and resources in a browser UI:
+### 4. Test with the MCP Inspector
+To test tools and resources visually in your browser:
 ```bash
 uv run mcp dev src/mcp_pypi/main.py
-```
-This opens the official MCP Inspector web dashboard to call tools and inspect payloads.
-
-### 3. Run the Automated Python Client Test
-Run the client test script to verify STDIO communication, tool execution, and resource reading:
-```bash
-python phase1_pypi/test_client.py
-```
-**Expected Output:**
-```text
-==================================================
-Testing MCP-PYPI Server via stdio client
-==================================================
-[OK] Server initialized: mcp-pypi-server (version: 1.30.0)
-[OK] Tools discovered (4): ['add', 'subtract', 'multiply', 'divide']
-
---- Testing Tool: add(a=12, b=28) ---
-Result: 40
-
---- Testing Tool: subtract(a=50, b=20) ---
-Result: 30
-
---- Testing Tool: multiply(a=6, b=7) ---
-Result: 42
-
---- Testing Tool: divide(a=100.0, b=4.0) ---
-Result: 25.0
-
---- Testing Resource: greeting://Alice ---
-Resource Content: Hello, Alice! Welcome to the MCP server.
-
-==================================================
-All Phase 1 tests passed successfully!
-==================================================
 ```
 
 ---
 
-## Step 4: Package & Deploy to PyPI (Phase 1)
+## 📦 How to Build and Deploy to PyPI (2:36:51 Tutorial Workflow)
 
-### 1. Build Distribution Packages
-Build standard Python wheel (`.whl`) and source tarball (`.tar.gz`):
+### Step 1: Configure Package Name
+In `pyproject.toml`, make sure the `name` field is unique on PyPI:
+```toml
+[project]
+name = "mcp-pypi-madhushankast"
+version = "0.1.0"
+```
+
+### Step 2: Build the Distribution Archives
+Run the build command from the project root:
 ```bash
 uv build
 ```
-The output artifacts are saved in `dist/`:
-- `dist/mcp_pypi_madhushankast-0.1.0-py3-none-any.whl`
-- `dist/mcp_pypi_madhushankast-0.1.0.tar.gz`
+*(Or with pip: `python -m build`)*
 
-### 2. Publish to TestPyPI (Recommended First Step)
-Test your package upload without affecting production PyPI:
-```bash
-uv publish --publish-url https://test.pypi.org/legacy/
-```
-- **Username**: `__token__`
-- **Password**: `<your-testpypi-api-token>`
+This compiles your package into two files in `dist/`:
+- `dist/mcp_pypi_madhushankast-0.1.0-py3-none-any.whl` (built wheel)
+- `dist/mcp_pypi_madhushankast-0.1.0.tar.gz` (source tarball)
 
-Or run the interactive helper:
-```bash
-python phase1_pypi/publish.py --target testpypi
-```
+### Step 3: Publish to TestPyPI (Recommended First)
+1. Create an account and API token on [https://test.pypi.org/](https://test.pypi.org/).
+2. Upload using `uv`:
+   ```bash
+   uv publish --publish-url https://test.pypi.org/legacy/
+   ```
+   - **Username**: `__token__`
+   - **Password**: `<your-testpypi-api-token>`
 
-### 3. Publish to Official PyPI
-```bash
-uv publish
-```
-- **Username**: `__token__`
-- **Password**: `<your-pypi-api-token>`
+*(Or using Twine: `twine upload --repository testpypi dist/*`)*
 
-### 4. Run Directly via `uvx` (Zero-Install Execution)
-Once published to PyPI, anyone can run your MCP server without manually cloning or installing:
+### Step 4: Publish to Production PyPI
+1. Create an account and API token on [https://pypi.org/](https://pypi.org/).
+2. Upload using `uv`:
+   ```bash
+   uv publish
+   ```
+   - **Username**: `__token__`
+   - **Password**: `<your-pypi-api-token>`
+
+*(Or using Twine: `twine upload dist/*`)*
+
+---
+
+## ⚡ Using Your Published MCP Server
+
+### 1. Instant Run with `uvx` (Zero Install)
+Once published on PyPI, anyone can run your server with a single command without cloning:
 ```bash
 uvx mcp-pypi-madhushankast
 ```
 
----
+### 2. Configure in Claude Desktop or Cursor
+Add the server to your `claude_desktop_config.json`:
 
-## Step 5: Run the MCP Gateway (Phase 2)
-
-An **MCP Gateway** acts as a central proxy and multiplexer. Instead of connecting an AI client to 10 separate servers, the client connects to a single Gateway that aggregates and routes tool calls to downstream backends.
-
-### Run the Gateway Test:
-```bash
-python phase2_gateway/test_gateway.py
-```
-This demonstrates:
-1. Health-checking registered downstream servers.
-2. Aggregating tool catalogs from multiple backends into a unified schema.
-3. Dynamically routing tool execution (e.g. `gateway -> core -> add`).
-
----
-
-## Step 6: Deploy with Docker (Phase 3)
-
-### 1. Build the Docker Image
-```bash
-docker build -f phase3_docker/Dockerfile -t mcp-pypi-server:latest .
-```
-
-### 2. Interactive STDIO Mode (For Claude Desktop / Cursor)
-```bash
-docker run -i --rm mcp-pypi-server:latest --transport stdio
-```
-
-### 3. SSE Background Service (With Docker Compose)
-To run the server as a persistent HTTP/SSE microservice on port 8000:
-```bash
-cd phase3_docker
-docker compose up -d
-```
-The SSE endpoint will be active at:
-`http://localhost:8000/sse`
-
-To stop:
-```bash
-docker compose down
-```
-
----
-
-## Step 7: Connect to AI Clients (Claude Desktop / Cursor)
-
-Add the server configuration to your `claude_desktop_config.json` (located at `%APPDATA%\Claude\claude_desktop_config.json` on Windows or `~/Library/Application Support/Claude/claude_desktop_config.json` on macOS):
-
-### Option A: Local Cloned Repository (Using `uv`)
-```json
-{
-  "mcpServers": {
-    "mcp-pypi-local": {
-      "command": "uv",
-      "args": [
-        "--directory",
-        "D:\\Projects\\MCP PYPI",
-        "run",
-        "mcp-pypi"
-      ]
-    }
-  }
-}
-```
-
-### Option B: PyPI Package via `uvx` (Once Published)
 ```json
 {
   "mcpServers": {
@@ -283,20 +149,12 @@ Add the server configuration to your `claude_desktop_config.json` (located at `%
 }
 ```
 
-### Option C: Docker Container
+Or for local development:
 ```json
 {
   "mcpServers": {
-    "mcp-docker": {
-      "command": "docker",
-      "args": [
-        "run",
-        "-i",
-        "--rm",
-        "mcp-pypi-server:latest",
-        "--transport",
-        "stdio"
-      ]
+    "mcp-pypi-local": {
+      "command": "mcp-pypi"
     }
   }
 }
@@ -304,23 +162,8 @@ Add the server configuration to your `claude_desktop_config.json` (located at `%
 
 ---
 
-## ❓ Troubleshooting & FAQs
-
-### 1. `Cannot find module mcp.server.mcpserver`
-- **Cause**: MCP 2.x renamed `FastMCP` to `MCPServer`.
-- **Solution**: This project pins `mcp>=1.3.0,<2.0.0` where `from mcp.server.fastmcp import FastMCP` is standard. Always install using `uv pip install -e .`.
-
-### 2. Docker container terminates immediately in Claude Desktop
-- **Cause**: Missing `-i` (interactive) flag.
-- **Solution**: Ensure your args include `"-i"`, as MCP relies on standard input/output streaming.
-
-### 3. 403 Forbidden when uploading to PyPI
-- **Cause**: The package name is already claimed by someone else on PyPI.
-- **Solution**: Update the `name` field in `pyproject.toml` to a globally unique name (e.g. `mcp-pypi-<your-username>`).
-
----
-
 ## 📝 License & Author
 - **Author**: Madhushanka (<stmadhushanka067@gmail.com>)
 - **Repository**: [https://github.com/madhushankast/MCP-PYPI](https://github.com/madhushankast/MCP-PYPI)
+- **Tutorial Reference**: [MCP Full Course For Beginners](https://www.youtube.com/watch?v=io02ZM0ADqM&t=9411s) (Timestamp `2:36:51`)
 - **License**: MIT

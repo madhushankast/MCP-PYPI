@@ -5,7 +5,7 @@ build-backend = "hatchling.build"
 [project]
 name = "mcp-pypi-madhushankast"
 version = "0.1.0"
-description = "A production-grade Model Context Protocol (MCP) server ready for PyPI and Docker deployment"
+description = "A Model Context Protocol (MCP) server package ready for PyPI deployment"
 readme = "README.md"
 license = "MIT"
 authors = [
