@@ -1,7 +1,7 @@
 """
 Phase 1 Client Test Script
 Demonstrates connecting to the packaged MCP server via stdio transport,
-discovering tools/resources/prompts, and calling them.
+discovering tools/resources, and calling them (matching the 2:36:51 tutorial).
 """
 
 import asyncio
@@ -18,7 +18,7 @@ async def run_client_test():
     # Launch server as a subprocess via standard input/output
     server_params = StdioServerParameters(
         command=sys.executable,
-        args=["-m", "mcp_pypi.server", "--transport", "stdio"],
+        args=["-m", "mcp_pypi.main", "--transport", "stdio"],
         env=None
     )
 
@@ -33,28 +33,30 @@ async def run_client_test():
             tool_names = [t.name for t in tools_response.tools]
             print(f"[OK] Tools discovered ({len(tool_names)}): {tool_names}")
 
-            # 3. Call tool: add_numbers
-            print("\n--- Testing Tool: add_numbers(a=12.5, b=27.5) ---")
-            add_res = await session.call_tool("add_numbers", arguments={"a": 12.5, "b": 27.5})
+            # 3. Call tool: add(a=12, b=28)
+            print("\n--- Testing Tool: add(a=12, b=28) ---")
+            add_res = await session.call_tool("add", arguments={"a": 12, "b": 28})
             print(f"Result: {add_res.content[0].text}")
 
-            # 4. Call tool: get_weather
-            print("\n--- Testing Tool: get_weather(city='Tokyo') ---")
-            weather_res = await session.call_tool("get_weather", arguments={"city": "Tokyo"})
-            print(f"Result: {weather_res.content[0].text}")
+            # 4. Call tool: subtract(a=50, b=20)
+            print("\n--- Testing Tool: subtract(a=50, b=20) ---")
+            sub_res = await session.call_tool("subtract", arguments={"a": 50, "b": 20})
+            print(f"Result: {sub_res.content[0].text}")
 
-            # 5. List resources
-            resources_response = await session.list_resources()
-            print(f"\n[OK] Resources: {[r.uri for r in resources_response.resources]}")
+            # 5. Call tool: multiply(a=6, b=7)
+            print("\n--- Testing Tool: multiply(a=6, b=7) ---")
+            mul_res = await session.call_tool("multiply", arguments={"a": 6, "b": 7})
+            print(f"Result: {mul_res.content[0].text}")
 
-            # 6. Read resource: greeting
-            print("\n--- Testing Resource: greeting://Student ---")
-            greeting_res = await session.read_resource("greeting://Student")
+            # 6. Call tool: divide(a=100.0, b=4.0)
+            print("\n--- Testing Tool: divide(a=100.0, b=4.0) ---")
+            div_res = await session.call_tool("divide", arguments={"a": 100.0, "b": 4.0})
+            print(f"Result: {div_res.content[0].text}")
+
+            # 7. Read resource: greeting
+            print("\n--- Testing Resource: greeting://Alice ---")
+            greeting_res = await session.read_resource("greeting://Alice")
             print(f"Resource Content: {greeting_res.contents[0].text}")
-
-            # 7. List prompts
-            prompts_response = await session.list_prompts()
-            print(f"\n[OK] Prompts: {[p.name for p in prompts_response.prompts]}")
 
     print("\n==================================================")
     print("All Phase 1 tests passed successfully!")

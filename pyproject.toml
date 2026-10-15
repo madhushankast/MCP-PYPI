@@ -42,7 +42,8 @@ dev = [
 ]
 
 [project.scripts]
-mcp-pypi = "mcp_pypi.server:main"
+mcp-pypi = "mcp_pypi.main:main"
+mcp-server = "mcp_pypi.main:main"
 
 [tool.hatch.build.targets.wheel]
 packages = ["src/mcp_pypi"]

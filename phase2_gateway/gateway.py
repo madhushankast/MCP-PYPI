@@ -22,7 +22,7 @@ gateway = FastMCP(
 DOWNSTREAM_SERVERS = {
     "core": {
         "command": sys.executable,
-        "args": ["-m", "mcp_pypi.server", "--transport", "stdio"],
+        "args": ["-m", "mcp_pypi.main", "--transport", "stdio"],
     }
 }
 

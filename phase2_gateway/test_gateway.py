@@ -35,12 +35,12 @@ async def run_gateway_test():
             print(f"Aggregated Catalog:\n{agg.content[0].text}")
 
             # 3. Route call through Gateway to Downstream 'core' server
-            print("\n--- Routing Tool Call via Gateway: core -> add_numbers ---")
+            print("\n--- Routing Tool Call via Gateway: core -> add ---")
             routed_call = await session.call_tool(
                 "invoke_downstream_tool",
                 arguments={
                     "server_key": "core",
-                    "tool_name": "add_numbers",
+                    "tool_name": "add",
                     "arguments": {"a": 100, "b": 250}
                 }
             )
