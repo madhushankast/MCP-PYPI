@@ -1,9 +1,6 @@
 # Phase 2: Creating an MCP Gateway
 
-> **Author**: Madhushanka ([stmadhushanka067@gmail.com](mailto:stmadhushanka067@gmail.com))  
-> **Tutorial Reference**: [MCP Full Course For Beginners](https://www.youtube.com/watch?v=io02ZM0ADqM&t=11955s) (Timestamp `3:19:15`)
-
-This phase implements the architecture covered at **timestamp 3:19:15 ("Creating MCP Gateway")** of the tutorial.
+This phase implements a multiplexing Gateway architecture:
 
 ---
 

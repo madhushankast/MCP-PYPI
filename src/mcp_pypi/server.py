@@ -1,11 +1,6 @@
 """
 Core MCP Server implementation for MCP-PYPI package.
 Provides Tools, Resources, and Prompts via STDIO or SSE transports.
-
-Author: Madhushanka <stmadhushanka067@gmail.com>
-GitHub: https://github.com/madhushankast/MCP-PYPI
-Tutorial Followed: "MCP Full Course For Beginners (With Deployment)"
-Video URL: https://www.youtube.com/watch?v=io02ZM0ADqM
 """
 
 import sys

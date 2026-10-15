@@ -5,16 +5,13 @@ build-backend = "hatchling.build"
 [project]
 name = "mcp-pypi-madhushankast"
 version = "0.1.0"
-description = "Model Context Protocol (MCP) server implemented by Madhushanka following the MCP crash course tutorial"
+description = "A production-grade Model Context Protocol (MCP) server ready for PyPI and Docker deployment"
 readme = "README.md"
 license = "MIT"
 authors = [
     { name = "Madhushanka", email = "stmadhushanka067@gmail.com" }
 ]
-maintainers = [
-    { name = "Madhushanka", email = "stmadhushanka067@gmail.com" }
-]
-keywords = ["mcp", "model-context-protocol", "llm", "ai", "claude", "fastmcp", "krishnaik"]
+keywords = ["mcp", "model-context-protocol", "llm", "ai", "claude", "fastmcp"]
 classifiers = [
     "Development Status :: 4 - Beta",
     "Intended Audience :: Developers",
@@ -36,7 +33,6 @@ dependencies = [
 [project.urls]
 Homepage = "https://github.com/madhushankast/MCP-PYPI"
 Repository = "https://github.com/madhushankast/MCP-PYPI"
-Tutorial = "https://www.youtube.com/watch?v=io02ZM0ADqM"
 
 [project.optional-dependencies]
 dev = [
